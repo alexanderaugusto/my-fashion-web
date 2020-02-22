@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseURL = "http://localhost:3333"
+const baseURL = process.env.REACT_APP_API_URL
 // const baseURL = "http://6d049803.ngrok.io"
 
 const request = axios.create({
