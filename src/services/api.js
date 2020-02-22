@@ -24,7 +24,7 @@ const routes = {
   ROUTE_PRODUCT_SEARCH: "/product/search",
 
   // User 
-  ROUTE_USER_INSERT: "/use/create",
+  ROUTE_USER_INSERT: "/user/create",
   ROUTE_USER_LIST_ALL: "/user/list_all",
   ROUTE_USER_LIST: "/user/list",
   ROUTE_USER_UPDATE: "/user/update",
