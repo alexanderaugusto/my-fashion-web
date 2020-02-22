@@ -1,0 +1,24 @@
+.align-grid{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.frete-value{
+  font-weight: 400 !important;
+}
+
+.button-remove{
+  font-size: 20px !important;
+}
+
+.link-address{
+  color: rgba(0, 153, 204, 1) !important;
+}
+
+.link-address:hover{
+  text-decoration: underline !important;
+}
+
+.button-buy{
+  margin-top: 30px !important;
+}

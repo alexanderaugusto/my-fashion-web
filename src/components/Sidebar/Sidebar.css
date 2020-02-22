@@ -1,0 +1,29 @@
+.side-nav{
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  z-index: 10 !important;
+}
+
+.user-options-main{
+  margin-left: -26px !important;
+  margin-top: -57px !important;
+  background-color: white !important;
+  z-index: 10 !important;
+}
+
+.toggle-container{
+  margin-bottom: 50px !important;
+  margin-top: -50px !important;
+}
+
+.nav{
+  color: grey !important;
+}
+
+.nav-container{
+  background-color: black !;
+}
+
+.nav-active{
+  color: rgba(0, 153, 204, 1) !important; 
+}

@@ -1,0 +1,100 @@
+/**  HEADER MENU   **/
+.header-style{
+  background-color: rgba(0, 153, 204, 1) !important;
+  flex: 1;
+  justify-content: start;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.logo{
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.input-group-search{
+  border-radius: 25px !important;
+  background-color: white;
+}
+
+.input-group-text{
+  border-top-right-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
+  cursor: pointer;
+}
+
+.icons{
+  font-size: 20px !important;
+  color: white !important; 
+}
+
+.nav-address{
+  cursor: pointer;
+}
+
+.text-cep{
+  color: white;
+  margin-bottom: 0px;
+  font-size: 11px;
+}
+
+.text-address{
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.button-address{
+  margin-top: 0 !important;
+}
+
+.row-nv-2{
+  /* margin-bottom: -20px; */
+  margin-top: 10px;
+}
+
+.filter-menu{
+  position: absolute;
+  width: 200%;
+  z-index: 10;
+}
+
+/**  HEADER MENU BIG  **/
+.user-avatar{
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.button-dropdown{
+  background-color: transparent !important;
+  font-size: 15px !important;
+  color: white !important;
+}
+
+/**  HEADER MENU MINI  **/
+.user-avatar-mini{
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.button-dropdown-mini{
+  background-color: transparent !important;
+  font-size: 12px !important;
+  color: white !important;
+}
+
+
+/**  HEADER CHECKOUT  **/
+.header-checkout-style{
+  background-color: rgba(0, 153, 204, 1) !important;
+  flex: 1;
+  justify-content: center;
+}
+
+.align-icon-middle{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

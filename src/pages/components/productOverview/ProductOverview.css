@@ -1,0 +1,54 @@
+/**  PRODUCT VIEWER  **/
+.image-viewer{
+  width: 100%;
+}
+
+.nav-item{
+  cursor: pointer;
+}
+
+.selected-item{
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  border-color: rgba(0, 153, 204, 1);
+}
+
+
+/** PRODUCT INFO **/
+.start-rating-text{
+  text-decoration: underline;
+}
+
+
+/**  PRODUCT INFO BUY  **/
+.card-title-price{
+  font-size: 35px !important;
+}
+
+.align-grid{
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.favourite-icon-grid{
+  font-size: 25px !important;
+  color:#dc3545 !important;
+}
+
+.dropdown-quantity-toggle{
+  cursor: pointer !important;
+}
+
+.margin-bottom{
+  margin-bottom: -15px !important;
+}
+
+.address-description{
+  margin-top: -15px !important;
+  margin-left: 10px;
+}
+
+.praze-frete-consult{
+  margin-top: 40px;
+}

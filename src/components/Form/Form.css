@@ -1,0 +1,26 @@
+.button-login{
+  margin-top: 35px !important;
+}
+
+.footer-link{
+  color: #C0C0C0 !important;
+}
+
+/**  FORM ADDRESS  **/
+.button-confirm-address{
+  margin-top: 30px !important;
+  width: 40% !important;
+}
+
+/** FORM EDIT ADDRESS **/
+.check-box{
+  margin-top: 30px;
+}
+
+/** FORM PERSONAL DATA **/
+.profile-image{
+  margin-top: -90px !important;
+  width: 150px !important;
+  height: 150px !important;
+  cursor: pointer;
+}

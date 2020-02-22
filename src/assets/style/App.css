@@ -1,0 +1,41 @@
+body{
+  background-color: rgba(192,192,192, 0.4) !important;
+  width: 100%;
+}
+
+.button-animation-grow{
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+.button-animation-grow:hover,
+.button-animation-grow:focus,
+.button-animation-grow:active {
+    transform: scale(1.1);
+}
+
+.btn-info{
+  background-color: rgba(0, 153, 204, 1) !important;
+}
+
+.btn-simple-info{
+  border-color: rgba(0, 153, 204, 1) !important;
+  color: rgba(0, 153, 204, 1) !important;
+}
+
+.cursor-pointer{
+  cursor: pointer !important;
+}
+
+.cursor-default{
+  cursor: default !important;
+}
+
+.default-color{
+  color:rgba(0, 153, 204, 1) !important;
+}

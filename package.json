@@ -1,0 +1,52 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.8.2",
+    "@material-ui/icons": "^4.5.1",
+    "@trendmicro/react-sidenav": "^0.4.5",
+    "argument-validator": "^0.1.0",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.4.1",
+    "cep-promise": "^3.0.8",
+    "rc-steps": "^3.5.0",
+    "react": "^16.12.0",
+    "react-credit-cards": "^0.8.0",
+    "react-dom": "^16.12.0",
+    "react-magnifier": "^3.0.4",
+    "react-multi-carousel": "^2.4.2",
+    "react-payment-card-component": "^0.2.1",
+    "react-redux": "^7.1.0-rc.1",
+    "react-responsive-carousel": "^3.1.51",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "react-slideshow-image": "^1.3.1",
+    "react-star-ratings": "^2.3.0",
+    "reactstrap": "^8.1.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "zipcodes": "^8.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

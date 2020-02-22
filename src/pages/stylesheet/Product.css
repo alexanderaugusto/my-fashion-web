@@ -1,0 +1,15 @@
+.btn-go-back{
+  font-size: 20px !important;
+  color: rgba(0, 153, 204, 1) !important;
+}
+
+.card-header-main{
+  padding-top: 0px !important;
+  padding-bottom: 10px !important;
+}
+
+.button-add-cart{
+  color: rgba(0, 153, 204, 1) !important;
+  border-color: rgba(0, 153, 204, 1) !important;
+}
+
