@@ -1,7 +1,6 @@
 import axios from "axios"
 
 const baseURL = process.env.REACT_APP_API_URL
-// const baseURL = "http://6d049803.ngrok.io"
 
 const request = axios.create({
   baseURL
@@ -9,8 +8,8 @@ const request = axios.create({
 
 const routes = {
   // Images
-  IMAGE_PATH_PRODUCT: `${baseURL}/img/product/`,
-  IMAGE_PATH_USER: `${baseURL}/img/user/`,
+  IMAGE_PATH_PRODUCT: `https://centralmodas-upload.s3.amazonaws.com/`,
+  IMAGE_PATH_USER: `https://centralmodas-upload.s3.amazonaws.com/`,
 
   // Auth
   ROUTE_LOGIN: "/login",

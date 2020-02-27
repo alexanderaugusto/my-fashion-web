@@ -1,7 +1,0 @@
-/** BACKEND **/
-ngrok authtoken 1VLRjTPbh9YHLKYsH3iun2Tgzp5_25XGN7RNHYKK54Lgg3URv  
-ngrok http 3333
-
-/** FRONTEND **/
-ngrok authtoken 1VLHWS0flc3RQy3MkT0QfE0A6pU_6cwBwumiRdzgJuCzwztYW
-ngrok http 3000
