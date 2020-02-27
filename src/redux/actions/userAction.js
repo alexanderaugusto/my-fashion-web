@@ -74,7 +74,7 @@ export const uploadImage = (image) => async dispatch => {
     return null
 
   let formdata = new FormData()
-  formdata.append("file", image)
+  formdata.append("files", image)
 
   const config = {
     headers: {

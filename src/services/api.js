@@ -8,8 +8,8 @@ const request = axios.create({
 
 const routes = {
   // Images
-  IMAGE_PATH_PRODUCT: `https://centralmodas-upload.s3.amazonaws.com/`,
-  IMAGE_PATH_USER: `https://centralmodas-upload.s3.amazonaws.com/`,
+  IMAGE_PATH_PRODUCT: "https://centralmodas-upload.s3.amazonaws.com/",
+  IMAGE_PATH_USER: "https://centralmodas-upload.s3.amazonaws.com/",
 
   // Auth
   ROUTE_LOGIN: "/login",
