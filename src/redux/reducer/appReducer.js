@@ -16,9 +16,10 @@ export default (state = INITIAL_STATE, action) => {
         loading: false
       }
     case "OPEN_ALERT":
+      const alert = { ...action.payload, open: true }
       return {
         ...state,
-        alert: action.payload
+        alert
       }
     case "CLOSE_ALERT":
       return {

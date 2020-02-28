@@ -3,7 +3,7 @@ import { Row, Col, CardTitle, Card, CardBody, Nav, NavItem } from "reactstrap"
 import { changeCheckoutStep, activeCheckout } from "../redux/actions/checkoutAction"
 import { createOrder } from "../redux/actions/orderAction"
 import { freightCalculator } from "../redux/actions/productAction"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { OrderResume } from "./components"
 import { CardDescription, Avatar, Button, ModalAdresses } from "../components"
 import { Redirect } from "react-router-dom"
@@ -12,14 +12,13 @@ import api from "../services/api"
 import "./stylesheet/Checkout.css"
 
 export default function CheckoutConfirm({ location, history }) {
-  let { products: cart, address, payment, card } = location.state ? location.state : {}
+  let { address, payment, card } = location.state ? location.state : {}
 
   const [modalAddress, setModalAddress] = useState(false)
   // const [modalFreight, setModalFreight] = useState(false)
-  const [total, setTotal] = useState(0)
-  const [products, setProducts] = useState([])
 
   // Redux
+  const { cart } = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -31,42 +30,34 @@ export default function CheckoutConfirm({ location, history }) {
 
   useEffect(() => {
     // Set freight and praze for each product in the cart
-    const newProducts = []
     if (address) {
       cart.filter(product => {
-        dispatch(freightCalculator(address.zipcode, product, (data) => {
-          newProducts.push({ ...product, Cart: { ...product.Cart, freight: parseFloat(data[0].Valor), praze: parseInt(data[0].PrazoEntrega, 10) } })
-
-          if (newProducts.length === cart.length)
-            setProducts(newProducts)
-        }))
+        dispatch(freightCalculator(address.zipcode, product))
 
         return null
       })
     }
   }, [dispatch, address, cart])
 
-  useEffect(() => {
-    function getBuyTotal() {
-      let subTotal = 0
-      let freightTotal = 0
-      let quantityTotal = 0
-      let discountTotal = 0
-      products.forEach(value => {
-        subTotal = subTotal + (value.price * value.Cart.quantity)
-        freightTotal = freightTotal + (parseFloat(value.Cart.freight))
-        quantityTotal = quantityTotal + value.Cart.quantity
-        discountTotal = discountTotal + value.Cart.discount
-      })
-      setTotal(subTotal + freightTotal - discountTotal)
-    }
+  function getBuyTotal() {
+    let subTotal = 0
+    let freightTotal = 0
+    let quantityTotal = 0
+    let discountTotal = 0
+    cart.filter(value => {
+      subTotal = subTotal + (value.price * value.Cart.quantity)
+      freightTotal = freightTotal + value.Cart.freight
+      quantityTotal = quantityTotal + value.Cart.quantity
+      discountTotal = discountTotal + value.Cart.discount
 
-    getBuyTotal()
-  }, [products])
+      return null
+    })
 
+    return (subTotal + freightTotal - discountTotal)
+  }
 
   function finallyOrder() {
-    dispatch(createOrder({ products, address, payment, card, total }, history))
+    dispatch(createOrder({ products: cart, address, payment, card, total: getBuyTotal() }, history))
   }
 
   function toggleModalAddress(newAddress) {
@@ -216,7 +207,7 @@ export default function CheckoutConfirm({ location, history }) {
         </Col>
         <Col md={8} xs={12}>
           <CardDescription fontSize={15} marginBottom={2}>Boleto bancário</CardDescription>
-          <CardDescription fontSize={13} color="green">{`R$ ${total.toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}</CardDescription>
+          <CardDescription fontSize={13} color="green">{`R$ ${getBuyTotal().toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}</CardDescription>
           <CardDescription fontSize={13}>
             O boleto tem um prazo máximo de compensação de 2 dias úteis,  más pode acontecer do pagamento
             ser liberado antes. Atente-se a data de validade!
@@ -250,7 +241,7 @@ export default function CheckoutConfirm({ location, history }) {
           <CardDescription fontSize={15} marginBottom={2}>
             {`Cartão de crédito - ${card.number.substring(0, 4) + " **** **** ****"}`}
           </CardDescription>
-          <CardDescription fontSize={13}>{`1x de R$ ${total.toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}</CardDescription>
+          <CardDescription fontSize={13}>{`1x de R$ ${getBuyTotal().toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}</CardDescription>
         </Col>
         <Col md={2} xs={12}>
           <Button color="link" className="link-address" onClick={() => history.goBack()}>
@@ -274,7 +265,7 @@ export default function CheckoutConfirm({ location, history }) {
           {renderAddress()}
 
           <CardDescription marginBottom={2} fontSize={16} color="black">Você está comprando:</CardDescription>
-          {products.map((product, index) => {
+          {cart.map((product, index) => {
             return (
               <Card key={index}>
                 <CardBody>
@@ -293,7 +284,7 @@ export default function CheckoutConfirm({ location, history }) {
 
         </Col>
         <Col md={4} xs={12}>
-          <OrderResume products={products} buttonText="Finalizar compra" history={history}
+          <OrderResume products={cart} buttonText="Finalizar compra" history={history}
             onClick={() => finallyOrder()} payment={payment} />
         </Col>
       </Row>

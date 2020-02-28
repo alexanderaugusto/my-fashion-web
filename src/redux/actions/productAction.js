@@ -105,10 +105,16 @@ export const freightCalculator = (cep_dest, product, callback) => async dispatch
   }
 
   dispatch({ type: "START_LOADING" })
-  await api.request.post(api.routes.ROUTE_FRETE_CALCULATOR, config, data, (cod, message, payload) => {
+  await api.request.post(api.routes.ROUTE_FRETE_CALCULATOR, config, data, (cod, message, data) => {
     if (cod === 200) {
       if (callback)
-        callback(payload)
+        callback(data)
+      else {
+        dispatch({
+          type: "SET_FREIGHT",
+          payload: { product, data }
+        })
+      }
     } else {
       dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
     }

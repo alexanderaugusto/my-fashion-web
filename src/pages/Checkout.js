@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Row, Col, Nav, NavItem, Card, CardBody, CardFooter } from "reactstrap"
 import { changeCheckoutStep, activeCheckout } from "../redux/actions/checkoutAction"
-import { freightCalculator } from "../redux/actions/productAction"
 import { useDispatch, useSelector } from "react-redux"
 import { OrderResume } from "./components"
 import { Button, CardDescription, Panel, Form } from "../components"
@@ -12,7 +11,7 @@ import { Redirect } from "react-router-dom"
 import "./stylesheet/Checkout.css"
 
 export default function Checkout({ location, history }) {
-  const { products, address, freight: selectedFreight } = location.state ? location.state : {}
+  const { products } = location.state ? location.state : {}
 
   const [checked, setChecked] = useState(0)
   const [cardPage, setCardPage] = useState(1) // 1 - list cards, 2 - insert card
@@ -21,7 +20,6 @@ export default function Checkout({ location, history }) {
 
   // Redux
   const { cards } = useSelector(state => state.userReducer)
-  const { freights } = useSelector(state => state.addressReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -31,25 +29,28 @@ export default function Checkout({ location, history }) {
     return () => dispatch(activeCheckout(false))
   }, [dispatch])
 
-  useEffect(() => { address && dispatch(freightCalculator(address.zipcode)) }, [address, dispatch])
+  //useEffect(() => { address && dispatch(freightCalculator(address.zipcode)) }, [address, dispatch])
 
   function goToConfirmCheckout() {
-    if (checked === 0)
-      return
-    else if (checked === "card" && selectedCard === null)
-      return
-
-    const { products, address, freight } = location.state
-    history.push({
-      pathname: "/checkout/confirm",
-      state: {
-        products,
-        address,
-        freight,
-        payment: checked,
-        card: selectedCard
-      }
-    })
+    if (checked === 0) {
+      dispatch({ type: "OPEN_ALERT", payload: { type: "warning", message: "Escolha uma das opções de pagamento." } })
+    }
+    else if (checked === "card" && selectedCard === null) {
+      dispatch({ type: "OPEN_ALERT", payload: { type: "warning", message: "Selecione um dos seus cartões de crédito." } })
+    }
+    else {
+      const { products, address, freight } = location.state
+      history.push({
+        pathname: "/checkout/confirm",
+        state: {
+          products,
+          address,
+          freight,
+          payment: checked,
+          card: selectedCard
+        }
+      })
+    }
   }
 
   function setCardEdit(card) {
@@ -228,7 +229,7 @@ export default function Checkout({ location, history }) {
           <Panel expansive expansionSumary={renderCreditCard()} expansionDetails={renderCreditCardForm()} />
         </Col>
         <Col md={4} xs={12}>
-          <OrderResume products={products} freight={freights[selectedFreight]} buttonText="Continuar" history={history}
+          <OrderResume products={products} buttonText="Continuar" history={history}
             payment={checked} onClick={() => goToConfirmCheckout()} />
         </Col>
       </Row>

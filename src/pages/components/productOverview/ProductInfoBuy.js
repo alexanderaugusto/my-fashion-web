@@ -26,31 +26,39 @@ export default function ProductInfoBuy({ product, history }) {
   const { mainAddress } = useSelector(state => state.userReducer)
 
   const freteCalculator = useCallback(async (start) => {
-    if ((cep.length === 9 && cep.includes("-")) || (cep.length === 8 && !cep.includes("-"))) {
+    if (((cep.length === 9 && cep.includes("-")) || (cep.length === 8 && !cep.includes("-")))) {
       dispatch(
-        freightCalculator(start ? mainAddress.zipcode : cep, product, (data) => {
+        freightCalculator(cep, product, (data) => {
           let currentDate = new Date()
           let freteInfo = {
             day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
             month: getDayAndMonth(currentDate.getMonth()),
             value: data[0].Valor
           }
-          if (start)
-            setUserFreteInfo(freteInfo)
-          else
-            setFreteInfo(freteInfo)
+          setFreteInfo(freteInfo)
         }))
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { type: "error", message: "CEP inválido! Por favor, digite um cep válido." } })
     }
-  }, [cep, mainAddress, product, dispatch])
+  }, [cep, product, dispatch])
 
   useEffect(() => {
-    if (mainAddress && mainAddress.length !== 0)
-      freteCalculator(true)
-  }, [mainAddress, freteCalculator])
+    if (mainAddress && mainAddress.length !== 0) {
+      dispatch(
+        freightCalculator(mainAddress.zipcode, product, (data) => {
+          let currentDate = new Date()
+          let freteInfo = {
+            day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
+            month: getDayAndMonth(currentDate.getMonth()),
+            value: data[0].Valor
+          }
+          setUserFreteInfo(freteInfo)
+        }))
+    }
+  }, [mainAddress, dispatch, product])
 
   function buyProduct() {
-    dispatch(insertCartItem(product.id))
-    history.push("/cart")
+    dispatch(insertCartItem(product.id, history))
   }
 
   if (!product)

@@ -24,20 +24,14 @@ export default function Cart({ history }) {
 
   // State
   const [selectedAddress, setSelectedAddress] = useState(mainAddress)
-  const [products, setProducts] = useState([])
 
   useEffect(() => { mainAddress && setSelectedAddress(mainAddress) }, [mainAddress])
 
   useEffect(() => {
-    // Set freight and praze for each product in the cart
-    const newProducts = []
+    // Set freight and term for each product in the cart
     if (selectedAddress) {
       cart.filter(product => {
-        dispatch(freightCalculator(selectedAddress.zipcode, product, (data) => {
-          newProducts.push({ ...product, Cart: { ...product.Cart, freight: parseFloat(data[0].Valor), praze: parseInt(data[0].PrazoEntrega, 10) } })
-          if (newProducts.length === cart.length)
-            setProducts(newProducts)
-        }))
+        dispatch(freightCalculator(selectedAddress.zipcode, product))
 
         return null
       })
@@ -49,7 +43,7 @@ export default function Cart({ history }) {
     history.push({
       pathname: "/checkout",
       state: {
-        products: products,
+        products: cart,
         address: selectedAddress,
         freight: "pac"
       }
@@ -69,18 +63,6 @@ export default function Cart({ history }) {
     if (quantity < product.quantity) {
       const newQuantity = quantity + 1
 
-      const newProducts = []
-      products.filter(value => {
-        let newProduct = value
-        if (value.id === id) {
-          newProduct = { ...value, Cart: { ...value.Cart, quantity: newQuantity } }
-        }
-        newProducts.push(newProduct)
-
-        return null
-      })
-      setProducts(newProducts)
-
       dispatch(CartActions.updateCartItem(id, newQuantity))
     }
   }
@@ -92,18 +74,6 @@ export default function Cart({ history }) {
     if (quantity > 1) {
       const newQuantity = quantity - 1
 
-      const newProducts = []
-      products.filter(value => {
-        let newProduct = value
-        if (value.id === id) {
-          newProduct = { ...value, Cart: { ...value.Cart, quantity: newQuantity } }
-        }
-        newProducts.push(newProduct)
-
-        return null
-      })
-      setProducts(newProducts)
-
       dispatch(CartActions.updateCartItem(id, newQuantity))
     }
   }
@@ -111,12 +81,14 @@ export default function Cart({ history }) {
   const renderYourProducts = () => {
     return (
       <div>
-        {products.map((product, index) => {
+        {cart.map((product, index) => {
           let { quantity, freight, discount } = product.Cart
           const total = ((quantity * product.price) + freight - discount).toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
           freight = (parseFloat(freight)).toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
           discount = discount ? discount : 0
           discount = (parseFloat(discount)).toFixed(2).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+
+          freight = isNaN(parseFloat(freight)) ? <span style={{ color: "red" }}>Erro ao calcular</span> : freight
 
           return (
             <Card key={index}>
@@ -159,7 +131,7 @@ export default function Cart({ history }) {
                       </Button>
                     </div>
                   </Col>
-                  <Col className="text-right">
+                  <Col className="text-right" xs={9}>
                     <div>
                       <CardDescription fontSize={16} marginBottom={2}>Envio: <span>
                         {freight}</span>
@@ -179,7 +151,7 @@ export default function Cart({ history }) {
         })
         }
         {
-          products.length !== 0 ? null :
+          cart.length !== 0 ? null :
             <div className="text-center">
               <CardDescription fontSize={20}> Você não possui nenhum produto no carrinho. </CardDescription>
               <Button color="link" className="link-address" onClick={() => history.push("/")}>
@@ -218,7 +190,7 @@ export default function Cart({ history }) {
           </Row>
         </Col>
         <Col md={4} xs={12}>
-          <OrderResume products={products} buttonText="Comprar" history={history}
+          <OrderResume products={cart} buttonText="Comprar" history={history}
             onClick={() => goToCheckout()} />
         </Col>
       </Row>

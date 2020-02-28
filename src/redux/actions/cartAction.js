@@ -1,7 +1,7 @@
 import api from "../../services/api"
 import { getUser } from "../actions/userAction"
 
-export const insertCartItem = (product_id) => async dispatch => {
+export const insertCartItem = (product_id, history) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -20,6 +20,9 @@ export const insertCartItem = (product_id) => async dispatch => {
   await api.request.post(api.routes.ROUTE_CART_INSERT, config, data, (cod, message, payload) => {
     if (cod === 200) {
       dispatch(getUser())
+
+      if (history)
+        history.push("/cart")
     } else {
       dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
     }
@@ -42,7 +45,10 @@ export const updateCartItem = (product_id, quantity) => async dispatch => {
   dispatch({ type: "START_LOADING" })
   await api.request.put(api.routes.ROUTE_CART_UPDATE_INFO, config, data, (cod, message, payload) => {
     if (cod === 200) {
-
+      dispatch({
+        type: "SET_QUANTITY",
+        payload: { product_id, quantity }
+      })
     } else {
       dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
     }

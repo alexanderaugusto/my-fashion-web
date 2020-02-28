@@ -31,6 +31,33 @@ export default (state = INITIAL_STATE, action) => {
         orders,
         favorites
       }
+    case "SET_FREIGHT":
+      state.cart.filter(product => {
+        if (product.id === action.payload.product.id) {
+          product.Cart.freight = parseFloat(action.payload.data[0].Valor)
+          product.Cart.praze = parseInt(action.payload.data[0].PrazoEntrega, 10)
+        }
+
+        return null
+      })
+
+      return {
+        ...state,
+        cart: state.cart
+      }
+    case "SET_QUANTITY":
+      state.cart.filter(product => {
+        if (product.id === action.payload.product_id) {
+          product.Cart.quantity = parseFloat(action.payload.quantity)
+        }
+
+        return null
+      })
+
+      return {
+        ...state,
+        cart: state.cart
+      }
     default:
       return state
   }
