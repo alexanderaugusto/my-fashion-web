@@ -170,7 +170,7 @@ export default function CheckoutConfirm({ location, history }) {
             <Nav>
               <NavItem className="cursor-default">
                 <Avatar alt={product.title} type="square"
-                  src={api.routes.IMAGE_PATH_PRODUCT + product.images[product.images.length - 1].name} />
+                  src={api.routes.FILES_URL + product.images[product.images.length - 1].name} />
 
                 &nbsp; &nbsp; &nbsp; &nbsp;
                 </NavItem>

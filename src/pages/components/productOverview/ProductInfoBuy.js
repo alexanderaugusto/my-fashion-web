@@ -9,7 +9,7 @@ import {
 } from "reactstrap"
 import { Button, CardDescription } from "../../../components"
 import { getDayAndMonth } from "../../../constants"
-import { insertItem } from "../../../redux/actions/cartAction"
+import { insertCartItem } from "../../../redux/actions/cartAction"
 import { insertFavoriteItem } from "../../../redux/actions/favoriteAction"
 import { freightCalculator } from "../../../redux/actions/productAction"
 import { useDispatch, useSelector } from "react-redux"
@@ -26,19 +26,21 @@ export default function ProductInfoBuy({ product, history }) {
   const { mainAddress } = useSelector(state => state.userReducer)
 
   const freteCalculator = useCallback(async (start) => {
-    dispatch(
-      freightCalculator(start ? mainAddress.zipcode : cep, product, (data) => {
-        let currentDate = new Date()
-        let freteInfo = {
-          day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
-          month: getDayAndMonth(currentDate.getMonth()),
-          value: data[0].Valor
-        }
-        if (start)
-          setUserFreteInfo(freteInfo)
-        else
-          setFreteInfo(freteInfo)
-      }))
+    if ((cep.length === 9 && cep.includes("-")) || (cep.length === 8 && !cep.includes("-"))) {
+      dispatch(
+        freightCalculator(start ? mainAddress.zipcode : cep, product, (data) => {
+          let currentDate = new Date()
+          let freteInfo = {
+            day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
+            month: getDayAndMonth(currentDate.getMonth()),
+            value: data[0].Valor
+          }
+          if (start)
+            setUserFreteInfo(freteInfo)
+          else
+            setFreteInfo(freteInfo)
+        }))
+    }
   }, [cep, mainAddress, product, dispatch])
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function ProductInfoBuy({ product, history }) {
   }, [mainAddress, freteCalculator])
 
   function buyProduct() {
-    dispatch(insertItem(product.id))
+    dispatch(insertCartItem(product.id))
     history.push("/cart")
   }
 
@@ -92,7 +94,7 @@ export default function ProductInfoBuy({ product, history }) {
         round
         color="simple"
         className="mb-3 button-add-cart"
-        onClick={() => dispatch(insertItem(product.id))}
+        onClick={() => dispatch(insertCartItem(product.id))}
       >
         Adiconar ao carrinho
       </Button>

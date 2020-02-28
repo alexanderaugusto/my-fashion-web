@@ -1,15 +1,12 @@
 import axios from "axios"
 
-const baseURL = process.env.REACT_APP_API_URL
-
-const request = axios.create({
-  baseURL
+const axiosCreated = axios.create({
+  baseURL: process.env.REACT_APP_API_URL
 })
 
 const routes = {
   // Images
-  IMAGE_PATH_PRODUCT: "https://centralmodas-upload.s3.amazonaws.com/",
-  IMAGE_PATH_USER: "https://centralmodas-upload.s3.amazonaws.com/",
+  FILES_URL: "https://centralmodas-upload.s3.amazonaws.com/",
 
   // Auth
   ROUTE_LOGIN: "/login",
@@ -56,6 +53,57 @@ const routes = {
   ROUTE_FAVORITE_INSERT: "/favorite/create",
   ROUTE_FAVORITE_LIST: "/favorite/list",
   ROUTE_FAVORITE_DELETE_PRODUCT: "/favorite/delete_product",
+}
+
+const success = (message, callback, data) => {
+  callback(200, message, data)
+}
+
+const error = (message, callback) => {
+  if (message.toString().includes("400")) {
+    callback(400, "Um erro ocorreu! Por favor, verifique todos os campos inseridos.")
+  }
+  else if (message.toString().includes("401")) {
+    callback(401, "Você precisa estar autenticado para relizar essa operação.")
+  }
+  else if (message.toString().includes("404")) {
+    callback(404, "Um erro ocorreu. Por favor, tente novamente mais tarde.")
+  }
+  else if (message.toString().includes("409")) {
+    callback(409, "Este email já foi cadastrado anteriormente.")
+  }
+  else if (message.toString().includes("402")) {
+    callback(402, "Email ou senha incorretos.")
+  }
+  else if (message.toString().includes("500")) {
+    callback(500, "Um erro ocorreu. Por favor, tente novamente mais tarde.")
+  }
+  else {
+    callback(500, "Um erro ocorreu. Por favor, tente novamente mais tarde.")
+  }
+}
+
+const request = {
+  post: async (route, config, data, callback) => {
+    await axiosCreated.post(route, data, config)
+      .then((response) => success(null, callback, response.data))
+      .catch((response) => error(response, callback))
+  },
+  put: async (route, config, data, callback) => {
+    await axiosCreated.put(route, data, config)
+      .then((response) => success(null, callback, response.data))
+      .catch((response) => error(response, callback))
+  },
+  get: async (route, config, data, callback) => {
+    await axiosCreated.get(route, config, data)
+      .then((response) => success(null, callback, response.data))
+      .catch((response) => error(response, callback))
+  },
+  delete: async (route, config, data, callback) => {
+    await axiosCreated.delete(route, config, data)
+      .then((response) => success(null, callback, response.data))
+      .catch((response) => error(response, callback))
+  }
 }
 
 export default {

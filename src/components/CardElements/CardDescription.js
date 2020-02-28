@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 
 class CardDescription extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class CardDescription extends React.Component {
         style={{ color, fontWeight, fontSize, marginTop, marginBottom }}>{children}</a></p>
     }
     return <p className={"card-description " + this.props.className}
-      style={{ color, fontWeight, fontSize, marginBottom }}>{children}</p>;
+      style={{ color, fontWeight, fontSize, marginBottom }}>{children}</p>
   }
 }
 

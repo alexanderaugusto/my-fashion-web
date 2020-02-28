@@ -8,7 +8,7 @@ import {
 } from "reactstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { Button, CardDescription, Form } from "../../../components"
-import { removeCard } from "../../../redux/actions/cardAction"
+import { deleteCard } from "../../../redux/actions/cardAction"
 import Cards from 'react-credit-cards'
 
 export default function AddressData() {
@@ -58,7 +58,7 @@ export default function AddressData() {
                         </Col>
                         <Col className="text-left">
                           <Button color="link" className="link-address"
-                            onClick={() => dispatch(removeCard(card.id))}>
+                            onClick={() => dispatch(deleteCard(card.id))}>
                             Excluir
                           </Button>
                         </Col>

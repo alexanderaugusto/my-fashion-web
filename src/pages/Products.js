@@ -9,7 +9,7 @@ import {
   Col
 } from "reactstrap"
 import { searchProducts } from "../redux/actions/productAction"
-import { insertItem } from "../redux/actions/cartAction"
+import { insertCartItem } from "../redux/actions/cartAction"
 import { useSelector, useDispatch } from 'react-redux'
 import { CardDescription, Button } from "../components"
 import { Sidebar } from "./components"
@@ -22,9 +22,10 @@ export default function Products({ match, history }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const { pathParam1, pathParam2 } = match.params
+    const pathParam1 = match.params.pathParam1
+    const pathParam2 = match.params.pathParam2
     dispatch(searchProducts(pathParam1, pathParam2))
-  }, [dispatch, match.params])
+  }, [dispatch, match.params.pathParam1, match.params.pathParam2])
 
   const renderProducts = () => {
     return (
@@ -37,7 +38,7 @@ export default function Products({ match, history }) {
                 <Card className="product-item">
                   <CardHeader className="text-center" onClick={() => history.push(`/product/view-${product.id}`)}>
                     <div>
-                      <img src={api.routes.IMAGE_PATH_PRODUCT + product.images[product.images.length - 1].name} width="auto" height="200" alt={"product" + product.cod} />
+                      <img src={api.routes.FILES_URL + product.images[product.images.length - 1].name} width="auto" height="200" alt={"product" + product.cod} />
                     </div>
                   </CardHeader>
                   <CardBody className="card-body" onClick={() => history.push(`/product/view-${product.id}`)}>
@@ -50,7 +51,7 @@ export default function Products({ match, history }) {
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button className="cart-icon button-animation-grow" icon color="link"
-                      onClick={() => dispatch(insertItem(product.id))}>
+                      onClick={() => dispatch(insertCartItem(product.id))}>
                       <i className="now-ui-icons shopping_cart-simple" />
                     </Button>{" "}
                     <Button className="favourite-icon button-animation-grow" icon color="link">

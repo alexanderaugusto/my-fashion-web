@@ -1,7 +1,7 @@
 import api from "../../services/api"
-import { getUserInfo } from "../actions/userAction"
+import { getUser } from "../actions/userAction"
 
-export const insertItem = (product_id) => async dispatch => {
+export const insertCartItem = (product_id) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -16,16 +16,18 @@ export const insertItem = (product_id) => async dispatch => {
     }
   }
 
-  await api.request.post(api.routes.ROUTE_CART_INSERT, data, config)
-    .then((response) => {
-      dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_CART_INSERT, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const updateCartInfo = (product_id, quantity) => async dispatch => {
+export const updateCartItem = (product_id, quantity) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -37,16 +39,18 @@ export const updateCartInfo = (product_id, quantity) => async dispatch => {
     }
   }
 
-  await api.request.put(api.routes.ROUTE_CART_UPDATE_INFO, data, config)
-    .then((response) => {
-      // dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.put(api.routes.ROUTE_CART_UPDATE_INFO, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const removeCartItem = (product_id) => async dispatch => {
+export const deleteCartItem = (product_id) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -57,11 +61,13 @@ export const removeCartItem = (product_id) => async dispatch => {
     data: { product_id }
   }
 
-  await api.request.delete(api.routes.ROUTE_CART_DELETE_PRODUCT, config)
-    .then((response) => {
-      dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.delete(api.routes.ROUTE_CART_DELETE_PRODUCT, config, null, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }

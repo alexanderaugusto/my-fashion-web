@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getUserInfo } from "../redux/actions/userAction"
+import { getUser } from "../redux/actions/userAction"
 import { Card, CardBody, CardTitle, Row, Col, Nav, NavItem } from "reactstrap"
 import { UserOptions, CardDescription, Button, Avatar, OrderSteps } from "../components"
 import { ProductsCarousel } from "./components"
@@ -15,7 +15,7 @@ export default function UserOrders({ match, history }) {
   const { orders } = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
 
-  useEffect(() => { dispatch(getUserInfo("GET_USER_ORDERS")) }, [dispatch])
+  useEffect(() => { dispatch(getUser("GET_USER_ORDERS")) }, [dispatch])
 
   const renderOrders = () => {
     return (
@@ -118,7 +118,7 @@ export default function UserOrders({ match, history }) {
                 <Nav>
                   <NavItem className="cursor-default">
                     <Avatar alt={product.title} type="square" width={120} height="auto"
-                      src={api.routes.IMAGE_PATH_PRODUCT + product.images[0].name} />
+                      src={api.routes.FILES_URL + product.images[0].name} />
 
                     &nbsp; &nbsp; &nbsp; &nbsp;
                   </NavItem>

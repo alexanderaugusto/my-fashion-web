@@ -35,12 +35,12 @@ export default class CardForm extends Component {
 
     if (numberState === "has-success" && nameState === "has-success" && dateState === "has-success" &&
       codState === "has-success" && cpfState === "has-success")
-      this.insertCard()
+      this.insertItem()
     else
       console.log("dados inválidos")
   }
 
-  async insertCard() {
+  async insertItem() {
     const { number, name, date, cod, cpf } = this.state.cardInfo
     const data = { number, name, date, cod, cpf }
     this.props.onSubmit(data)

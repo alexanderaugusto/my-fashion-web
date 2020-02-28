@@ -1,10 +1,15 @@
+import Alert from "./Alert/Alert"
+
 import Avatar from "./Avatar/Avatar"
 
 import CardDescription from "./CardElements/CardDescription"
 import CardDropdown from "./CardElements/CardDropdown"
 import Panel from "./CardElements/Panel"
 
-import Button from "./CustomButtons/Button"
+import Button from "./CustomButton/Button"
+
+import InputAddon from "./CustomInput/InputAddon"
+import AutoCompleteInput from "./CustomInput/AutoCompleteInput"
 
 import CategoryDropdown from "./Dropdown/CategoryDropdown"
 
@@ -21,8 +26,7 @@ import Form from "./Form/Form"
 import HeaderMenu from "./Header/HeaderMenu"
 import HeaderCheckout from "./Header/HeaderCheckout"
 
-import InputAddon from "./Input/InputAddon"
-import AutoCompleteInput from "./Input/AutoCompleteInput"
+import ScreenLoader from "./Loader/ScreenLoder"
 
 import ModalLoginRegister from "./Modal/ModalLoginRegister"
 import ModalAdresses from "./Modal/ModalAdresses"
@@ -34,11 +38,14 @@ import CheckoutSteps from "./Stepper/CheckoutSteps"
 import OrderSteps from "./Stepper/OrderSteps"
 
 export {
+  Alert,
   Avatar,
   CardDescription,
   CardDropdown,
   Panel,
   Button,
+  InputAddon,
+  AutoCompleteInput,
   CategoryDropdown,
   LoginForm,
   RegisterForm,
@@ -51,8 +58,7 @@ export {
   Form,
   HeaderMenu,
   HeaderCheckout,
-  InputAddon,
-  AutoCompleteInput,
+  ScreenLoader,
   ModalLoginRegister,
   ModalAdresses,
   ModalFreight,

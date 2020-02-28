@@ -1,33 +1,37 @@
 import api from "../../services/api"
 
 export const getAllProducts = () => async dispatch => {
-  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_ALL)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_ALL, null, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "GET_ALL_PRODUCTS",
-        payload: response.data
+        payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const getProductInfo = (id) => async dispatch => {
+export const getProduct = (id) => async dispatch => {
   const config = {
     params: { id }
   }
 
-  await api.request.get(api.routes.ROUTE_PRODUCT_LIST, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_PRODUCT_LIST, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
-        type: "GET_PRODUCT_INFO",
-        payload: response.data
+        type: "GET_PRODUCT",
+        payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const getProductOffers = (product_category, product_id) => async dispatch => {
@@ -35,16 +39,18 @@ export const getProductOffers = (product_category, product_id) => async dispatch
     params: { product_category, product_id }
   }
 
-  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_OFFERS, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_OFFERS, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "GET_PRODUCT_OFFERS",
-        payload: response.data
+        payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const getProductsByCategory = (product_category) => async dispatch => {
@@ -52,16 +58,18 @@ export const getProductsByCategory = (product_category) => async dispatch => {
     params: { product_category }
   }
 
-  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_BY_CATEGORY, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_BY_CATEGORY, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "GET_PRODUCT_BY_CATEGORY",
-        payload: response.data
+        payload: payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const searchProducts = (string) => async dispatch => {
@@ -69,31 +77,41 @@ export const searchProducts = (string) => async dispatch => {
     params: { string }
   }
 
-  await api.request.get(api.routes.ROUTE_PRODUCT_SEARCH, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_PRODUCT_SEARCH, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "SEARCH_PRODUCTS",
-        payload: response.data,
+        payload,
         text: string
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const freightCalculator = (cep_dest, product, callback) => async dispatch => {
+  const config = {
+    headers: {
+      "Authorization": "Bearer " + JSON.parse(localStorage.getItem("user-token"))
+    }
+  }
+
   const data = {
     cep_dest,
     product
   }
 
-  await api.request.post(api.routes.ROUTE_FRETE_CALCULATOR, data)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_FRETE_CALCULATOR, config, data, (cod, message, payload) => {
+    if (cod === 200) {
       if (callback)
-        callback(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+        callback(payload)
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }

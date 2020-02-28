@@ -1,23 +1,29 @@
 const INITIAL_STATE = {
-  
+  loading: false,
+  alert: {}
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "INSERT_ITEM":
+    case "START_LOADING":
       return {
         ...state,
-        items: action.payload
+        loading: true
       }
-    case "UPDATE_CART_INFO":
+    case "STOP_LOADING":
       return {
         ...state,
-        items: action.payload
+        loading: false
       }
-    case "REMOVE_CART_ITEM":
+    case "OPEN_ALERT":
       return {
         ...state,
-        items: action.payload
+        alert: action.payload
+      }
+    case "CLOSE_ALERT":
+      return {
+        ...state,
+        alert: {}
       }
     default:
       return state

@@ -1,6 +1,6 @@
 import api from "../../services/api"
 
-export const getUserInfo = () => async dispatch => {
+export const getUser = () => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token"))) {
     return null
   }
@@ -11,19 +11,21 @@ export const getUserInfo = () => async dispatch => {
     }
   }
 
-  await api.request.get(api.routes.ROUTE_USER_LIST, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_USER_LIST, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "GET_USER_INFO",
-        payload: response.data
+        payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const updateUserInfo = (data, onSubmit) => async dispatch => {
+export const updateUser = (data, onSubmit) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -33,40 +35,47 @@ export const updateUserInfo = (data, onSubmit) => async dispatch => {
     }
   }
 
-  await api.request.put(api.routes.ROUTE_USER_UPDATE, data, config)
-    .then((response) => {
-      dispatch(getUserInfo())
+  dispatch({ type: "START_LOADING" })
+  await api.request.put(api.routes.ROUTE_USER_UPDATE, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
       onSubmit()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const login = (data, redirect, history) => async dispatch => {
-  await api.request.post(api.routes.ROUTE_LOGIN, data)
-    .then((response) => {
-      localStorage.setItem("user-token", JSON.stringify(response.data.token))
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_LOGIN, null, data, (cod, message, payload) => {
+    if (cod === 200) {
+      console.log(payload)
+      localStorage.setItem("user-token", JSON.stringify(payload.token))
       if (redirect)
         history.push(redirect)
       window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const register = (data, redirect, history) => async dispatch => {
-  await api.request.post(api.routes.ROUTE_USER_INSERT, data)
-    .then((response) => {
-      localStorage.setItem("user-token", JSON.stringify(response.data.token))
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_USER_INSERT, null, data, (cod, message, payload) => {
+    if (cod === 200) {
+      localStorage.setItem("user-token", JSON.stringify(payload.token))
       if (redirect)
         history.push(redirect)
       window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const uploadImage = (image) => async dispatch => {
@@ -83,11 +92,13 @@ export const uploadImage = (image) => async dispatch => {
     }
   }
 
-  await api.request.post(api.routes.ROUTE_USER_UPLOAD_IMAGE, formdata, config)
-    .then((response) => {
-      dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_USER_UPLOAD_IMAGE, config, formdata, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }

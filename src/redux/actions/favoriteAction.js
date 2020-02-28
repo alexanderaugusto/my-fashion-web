@@ -1,5 +1,5 @@
 import api from "../../services/api"
-import { getUserInfo } from "../actions/userAction"
+import { getUser } from "../actions/userAction"
 
 export const insertFavoriteItem = (product_id) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
@@ -15,16 +15,18 @@ export const insertFavoriteItem = (product_id) => async dispatch => {
     }
   }
 
-  await api.request.post(api.routes.ROUTE_FAVORITE_INSERT, data, config)
-    .then((response) => {
-      dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_FAVORITE_INSERT, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const removeFavoriteItem = (product_id) => async dispatch => {
+export const deleteFavoriteItem = (product_id) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -35,11 +37,13 @@ export const removeFavoriteItem = (product_id) => async dispatch => {
     data: { product_id }
   }
 
-  await api.request.delete(api.routes.ROUTE_FAVORITE_DELETE_PRODUCT, config)
-    .then((response) => {
-      dispatch(getUserInfo())
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.delete(api.routes.ROUTE_FAVORITE_DELETE_PRODUCT, config, null, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }

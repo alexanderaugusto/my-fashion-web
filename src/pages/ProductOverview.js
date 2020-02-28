@@ -8,7 +8,7 @@ import {
 } from "reactstrap"
 import { Button } from "../components"
 import { ProductView, ProductInfo, ProductInfoBuy, ProductOffers } from "./components"
-import { getProductInfo } from "../redux/actions/productAction"
+import { getProduct } from "../redux/actions/productAction"
 import { useSelector, useDispatch } from "react-redux"
 
 import "./stylesheet/Product.css"
@@ -19,11 +19,11 @@ export default function Product({ match, history }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function getProduct() {
-      dispatch(getProductInfo(match.params.id))
+    async function getProductInfo() {
+      dispatch(getProduct(match.params.id))
     }
 
-    getProduct() // Call function
+    getProductInfo() // Call function
 
   }, [match.params.id, dispatch])
 

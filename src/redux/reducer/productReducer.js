@@ -12,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
         products: action.payload,
         searchText: ""
       }
-    case "GET_PRODUCT_INFO":
+    case "GET_PRODUCT":
       return {
         ...state,
         product: action.payload,

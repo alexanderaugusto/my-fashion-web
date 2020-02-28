@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getUserInfo } from "../redux/actions/userAction"
-import { removeFavoriteItem } from "../redux/actions/favoriteAction"
+import { getUser } from "../redux/actions/userAction"
+import { deleteFavoriteItem } from "../redux/actions/favoriteAction"
 import { Card, CardBody, CardTitle, Row, Col } from "reactstrap"
 import { UserOptions, CardDescription, Button } from "../components"
 import api from "../services/api"
@@ -11,12 +11,12 @@ export default function UserFavorites({ match, history }) {
   const { favorites } = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
 
-  useEffect(() => { dispatch(getUserInfo("GET_USER_ORDERS")) }, [dispatch])
+  useEffect(() => { dispatch(getUser("GET_USER_ORDERS")) }, [dispatch])
 
   async function removeProduct(product) {
     const { id } = product
 
-    dispatch(removeFavoriteItem(id))
+    dispatch(deleteFavoriteItem(id))
   }
 
   return (
@@ -33,7 +33,7 @@ export default function UserFavorites({ match, history }) {
                 <CardBody>
                   <Row>
                     <Col xs={3} className="text-center">
-                      <img src={api.routes.IMAGE_PATH_PRODUCT + product.images[0].name} alt={product.images[0].name} width="100" height="100"
+                      <img src={api.routes.FILES_URL + product.images[0].name} alt={product.images[0].name} width="100" height="100"
                         className="cursor-pointer" onClick={() => history.push(`/product/view-${product.id}`)} />
                     </Col>
                     <Col xs={6}>

@@ -46,7 +46,7 @@ export default function ProductsCarousel({ products, details }) {
               <div>
                 <CardHeader className="text-center">
                   <Button href={`/product/view-${product.id}`} style={{ height: "auto", width: "auto" }} icon color="link">
-                    <img src={api.routes.IMAGE_PATH_PRODUCT + product.images[0].name} width="auto" height="80" alt={"product" + product.cod} />
+                    <img src={api.routes.FILES_URL + product.images[0].name} width="auto" height="80" alt={"product" + product.cod} />
                   </Button>
                 </CardHeader>
                 <CardBody>

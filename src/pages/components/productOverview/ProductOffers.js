@@ -12,7 +12,7 @@ import Carousel from 'react-multi-carousel'
 import { useSelector, useDispatch } from "react-redux"
 import { getProductOffers } from "../../../redux/actions/productAction"
 import { insertFavoriteItem } from "../../../redux/actions/favoriteAction"
-import { insertItem } from "../../../redux/actions/cartAction"
+import { insertCartItem } from "../../../redux/actions/cartAction"
 
 import 'react-multi-carousel/lib/styles.css'
 
@@ -74,7 +74,7 @@ export default function ProductOffers({ currentProduct, history }) {
                     window.location.reload()
                   }}>
                   <div>
-                    <img src={api.routes.IMAGE_PATH_PRODUCT + product.images[product.images.length - 1].name} width="auto" height="200" alt={"product" + product.cod} />
+                    <img src={api.routes.FILES_URL + product.images[product.images.length - 1].name} width="auto" height="200" alt={"product" + product.cod} />
                   </div>
                 </CardHeader>
                 <CardBody className="card-body"
@@ -91,7 +91,7 @@ export default function ProductOffers({ currentProduct, history }) {
                 </CardBody>
                 <CardFooter className="text-center">
                   <Button className="cart-icon button-animation-grow" icon color="link"
-                    onClick={() => dispatch(insertItem(product.id))}>
+                    onClick={() => dispatch(insertCartItem(product.id))}>
                     <i className="now-ui-icons shopping_cart-simple" />
                   </Button>{" "}
                   <Button className="favourite-icon button-animation-grow" icon color="link">

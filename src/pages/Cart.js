@@ -59,7 +59,7 @@ export default function Cart({ history }) {
   async function removeProduct(product) {
     const { id } = product
 
-    dispatch(CartActions.removeCartItem(id))
+    dispatch(CartActions.deleteCartItem(id))
   }
 
   function incrementQuantity(product) {
@@ -81,7 +81,7 @@ export default function Cart({ history }) {
       })
       setProducts(newProducts)
 
-      dispatch(CartActions.updateCartInfo(id, newQuantity))
+      dispatch(CartActions.updateCartItem(id, newQuantity))
     }
   }
 
@@ -104,7 +104,7 @@ export default function Cart({ history }) {
       })
       setProducts(newProducts)
 
-      dispatch(CartActions.updateCartInfo(id, newQuantity))
+      dispatch(CartActions.updateCartItem(id, newQuantity))
     }
   }
 
@@ -123,7 +123,7 @@ export default function Cart({ history }) {
               <CardBody>
                 <Row>
                   <Col xs={3} className="text-center">
-                    <img src={api.routes.IMAGE_PATH_PRODUCT + product.images[0].name} alt={product.images[0].name} width="100" height="100"
+                    <img src={api.routes.FILES_URL + product.images[0].name} alt={product.images[0].name} width="100" height="100"
                       className="cursor-pointer" onClick={() => history.push(`/product/view-${product.id}`)} />
                   </Col>
                   <Col xs={6}>

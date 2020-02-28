@@ -16,7 +16,7 @@ export default (state = INITIAL_STATE, action) => {
     case "GET_USER_INFO":
       const { id, email, name, cpf, date_of_birth: dateOfBirth, phone, image, createdAt, updatedAt } = action.payload
       const data = {
-        id, email, name, cpf, dateOfBirth, phone, image: api.routes.IMAGE_PATH_USER + image,
+        id, email, name, cpf, dateOfBirth, phone, image: api.routes.FILES_URL + image,
         createdAt, updatedAt
       }
       const { addresses: adresses, cart_products: cart, cards, orders, favorite_products: favorites } = action.payload

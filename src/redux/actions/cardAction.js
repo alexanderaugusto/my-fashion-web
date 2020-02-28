@@ -1,7 +1,7 @@
 import api from "../../services/api"
-import { getUserInfo } from "../actions/userAction"
+import { getUser } from "../actions/userAction"
 
-export const insertCard = (data, onInsert) => async dispatch => {
+export const createCard = (data, onInsert) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
     return null
 
@@ -11,16 +11,16 @@ export const insertCard = (data, onInsert) => async dispatch => {
     }
   }
 
-  await api.request.post(api.routes.ROUTE_CARD_INSERT, data, config)
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(getUserInfo())
-        onInsert()
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_CARD_INSERT, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+      onInsert()
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const updateCard = (data, onEdit) => async dispatch => {
@@ -30,19 +30,19 @@ export const updateCard = (data, onEdit) => async dispatch => {
     }
   }
 
-  await api.request.put(api.routes.ROUTE_CARD_UPDATE, data, config)
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(getUserInfo())
-        onEdit()
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.put(api.routes.ROUTE_CARD_UPDATE, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+      onEdit()
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
-export const removeCard = (id) => async dispatch => {
+export const deleteCard = (id) => async dispatch => {
   const config = {
     headers: {
       "Authorization": "Bearer " + JSON.parse(localStorage.getItem("user-token"))
@@ -50,14 +50,13 @@ export const removeCard = (id) => async dispatch => {
     data: { id }
   }
 
-  await api.request.delete(api.routes.ROUTE_CARD_DELETE, config)
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(getUserInfo())
-      }
-
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  dispatch({ type: "START_LOADING" })
+  await api.request.delete(api.routes.ROUTE_CARD_DELETE, config, null, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }

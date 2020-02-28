@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Row, Col, Nav, NavItem, Card, CardBody, CardFooter } from "reactstrap"
 import { changeCheckoutStep, activeCheckout } from "../redux/actions/checkoutAction"
-import { freightCalculator } from "../redux/actions/addressAction"
+import { freightCalculator } from "../redux/actions/productAction"
 import { useDispatch, useSelector } from "react-redux"
 import { OrderResume } from "./components"
 import { Button, CardDescription, Panel, Form } from "../components"

@@ -7,7 +7,7 @@ import {
   CardFooter
 } from "reactstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { removeAddress } from "../../../redux/actions/addressAction"
+import { deleteAddress } from "../../../redux/actions/addressAction"
 import { Button, Form, CardDescription } from "../../../components"
 
 export default function AddressData() {
@@ -48,7 +48,7 @@ export default function AddressData() {
                         <Button color="link" className="link-address"
                           onClick={() => setEditAddress(address)}>Editar endereço</Button>
                         <Button color="link" className="link-address"
-                          onClick={() => dispatch(removeAddress(address.id))}>Excluir endereço</Button>
+                          onClick={() => dispatch(deleteAddress(address.id))}>Excluir endereço</Button>
                       </CardFooter>
                     </Card>
                   </Col>

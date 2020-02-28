@@ -1,5 +1,5 @@
 import api from "../../services/api"
-import { getUserInfo } from "../actions/userAction"
+import { getUser } from "../actions/userAction"
 import { getDate } from "../../constants/functions"
 
 export const createOrder = (orderItems, history) => async dispatch => {
@@ -14,18 +14,20 @@ export const createOrder = (orderItems, history) => async dispatch => {
 
   const data = getData(orderItems)
 
-  await api.request.post(api.routes.ROUTE_ORDER_CREATE, data, config)
-    .then((response) => {
-      dispatch(getUserInfo())
+  dispatch({ type: "START_LOADING" })
+  await api.request.post(api.routes.ROUTE_ORDER_CREATE, config, data, (cod, message, payload) => {
+    if (cod === 200) {
+      dispatch(getUser())
 
       history.push({
-        pathname: "/checkout/confirm/" + response.data,
+        pathname: "/checkout/confirm/" + payload,
         state: data
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 export const listStatus = () => async dispatch => {
@@ -38,17 +40,18 @@ export const listStatus = () => async dispatch => {
     }
   }
 
-
-  await api.request.get(api.routes.ROUTE_ORDER_GET_STATUS, config)
-    .then((response) => {
+  dispatch({ type: "START_LOADING" })
+  await api.request.get(api.routes.ROUTE_ORDER_GET_STATUS, config, null, (cod, message, payload) => {
+    if (cod === 200) {
       dispatch({
         type: "GET_STATUS",
-        payload: response.data
+        payload
       })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    } else {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
+    }
+  })
+  dispatch({ type: "STOP_LOADING" })
 }
 
 function getData(orderItems) {

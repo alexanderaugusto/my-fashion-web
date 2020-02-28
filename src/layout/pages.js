@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Route, Switch } from "react-router-dom"
-import { HeaderMenu, HeaderCheckout, ModalLoginRegister } from "../components"
+import { HeaderMenu, HeaderCheckout, ModalLoginRegister, ScreenLoader, Alert } from "../components"
 import { useSelector, useDispatch } from "react-redux"
-import { getUserInfo } from "../redux/actions/userAction"
+import { getUser } from "../redux/actions/userAction"
 
 import routes from "../routes"
 
@@ -15,9 +15,10 @@ export default function PagesLayout({ history, match }) {
 
   // Redux
   const { isCheckout } = useSelector(state => state.checkoutReducer)
+  const { loading, alert } = useSelector(state => state.appReducer)
   const dispatch = useDispatch()
 
-  useEffect(() => { dispatch(getUserInfo()) }, [dispatch])
+  useEffect(() => { dispatch(getUser()) }, [dispatch])
 
   // Toggle modal of register and login
   function toggleModal(tab, redirect) {
@@ -35,6 +36,10 @@ export default function PagesLayout({ history, match }) {
       }
 
       <ModalLoginRegister modalOpen={modalOpen} toggleModal={() => toggleModal()} tab={tab} redirect={redirect} history={history} />
+
+      <ScreenLoader isLoading={loading} />
+
+      {!alert.open ? null : <Alert isOpen={alert.open} type={alert.type} message={alert.message} />}
 
       <div className="pages-body">
         <Switch>

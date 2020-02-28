@@ -31,7 +31,7 @@ export default class RegisterForm extends Component {
       confirmPasswordState === "has-success")
       this.register()
     else
-      console.log("dados inválidos")
+      this.props.error("Dados inválidos! Por favor, verifique todos os campos e tente novamente.")
   }
 
   register() {
