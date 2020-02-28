@@ -27,7 +27,7 @@ export default function ModalLoginRegister({ modalOpen, toggleModal, tab, redire
         <ModalHeader className="justify-content-center" toggle={() => toggleModal()}>
           <div className="header header-primary text-center">
             <div className="logo-container">
-              <img src={logo} alt="logo" width="50" height="50" />
+              <img src={logo} alt="logo" width="150" height="47" />
             </div>
           </div>
           <Nav tabs>
