@@ -14,7 +14,7 @@ const routes = {
   // Products 
   ROUTE_PRODUCT_LIST_ALL: "/product/list_all",
   ROUTE_PRODUCT_LIST: "/product/list",
-  ROUTE_FRETE_CALCULATOR: "/product/frete_calculator",
+  ROUTE_FRETE_CALCULATOR: "/product/freight_calculator",
   ROUTE_PRODUCT_LIST_OFFERS: "/product/list_offers",
   ROUTE_PRODUCT_LIST_BY_CATEGORY: "/product/list_by_category",
   ROUTE_PRODUCT_SEARCH: "/product/search",

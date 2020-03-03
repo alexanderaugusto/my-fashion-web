@@ -4,7 +4,7 @@ import { getUser } from "../redux/actions/userAction"
 import { Card, CardBody, CardTitle, Row, Col, Nav, NavItem } from "reactstrap"
 import { UserOptions, CardDescription, Button, Avatar, OrderSteps } from "../components"
 import { ProductsCarousel } from "./components"
-import { getDate } from "../constants"
+import { dateToBrDate } from "../constants"
 import Divider from '@material-ui/core/Divider'
 import api from "../services/api"
 
@@ -41,7 +41,7 @@ export default function UserOrders({ match, history }) {
                       Pedido: <span style={{ fontWeight: "bold" }}>{order.id}</span>
                     </CardDescription>
                     <CardDescription marginBottom={2}>
-                      Data da compra: <span style={{ fontWeight: "bold" }}>{getDate(order.createdAt)}</span>
+                      Data da compra: <span style={{ fontWeight: "bold" }}>{dateToBrDate(order.createdAt)}</span>
                     </CardDescription>
                     <CardDescription>
                       Total: <span style={{ fontWeight: "bold" }}>

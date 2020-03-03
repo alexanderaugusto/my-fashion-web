@@ -8,7 +8,7 @@ import {
   Form
 } from "reactstrap"
 import { Button, CardDescription } from "../../../components"
-import { getDayAndMonth } from "../../../constants"
+import { getFreightTerm } from "../../../constants"
 import { insertCartItem } from "../../../redux/actions/cartAction"
 import { insertFavoriteItem } from "../../../redux/actions/favoriteAction"
 import { freightCalculator } from "../../../redux/actions/productAction"
@@ -29,13 +29,14 @@ export default function ProductInfoBuy({ product, history }) {
     if (((cep.length === 9 && cep.includes("-")) || (cep.length === 8 && !cep.includes("-")))) {
       dispatch(
         freightCalculator(cep, product, (data) => {
-          let currentDate = new Date()
-          let freteInfo = {
-            day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
-            month: getDayAndMonth(currentDate.getMonth()),
-            value: data[0].Valor
+          const { day, month } = data.date_end
+
+          let freightInfo = {
+            day,
+            month: getFreightTerm(parseInt(month, 10) - 1),
+            value: data.value.replace(".", ",")
           }
-          setFreteInfo(freteInfo)
+          setFreteInfo(freightInfo)
         }))
     } else {
       dispatch({ type: "OPEN_ALERT", payload: { type: "error", message: "CEP inválido! Por favor, digite um cep válido." } })
@@ -46,13 +47,14 @@ export default function ProductInfoBuy({ product, history }) {
     if (mainAddress && mainAddress.length !== 0) {
       dispatch(
         freightCalculator(mainAddress.zipcode, product, (data) => {
-          let currentDate = new Date()
-          let freteInfo = {
-            day: currentDate.getDate() + parseInt(data[0].PrazoEntrega),
-            month: getDayAndMonth(currentDate.getMonth()),
-            value: data[0].Valor
+          const { day, month } = data.date_end
+
+          let freightInfo = {
+            day,
+            month: getFreightTerm(parseInt(month, 10) - 1),
+            value: data.value.replace(".", ",")
           }
-          setUserFreteInfo(freteInfo)
+          setUserFreteInfo(freightInfo)
         }))
     }
   }, [mainAddress, dispatch, product])

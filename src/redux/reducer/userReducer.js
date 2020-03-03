@@ -34,8 +34,8 @@ export default (state = INITIAL_STATE, action) => {
     case "SET_FREIGHT":
       state.cart.filter(product => {
         if (product.id === action.payload.product.id) {
-          product.Cart.freight = parseFloat(action.payload.data[0].Valor)
-          product.Cart.praze = parseInt(action.payload.data[0].PrazoEntrega, 10)
+          product.Cart.freight = parseFloat(action.payload.data.value)
+          product.Cart.praze = parseInt(action.payload.data.term, 10)
         }
 
         return null

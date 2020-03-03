@@ -1,6 +1,6 @@
 import api from "../../services/api"
 import { getUser } from "../actions/userAction"
-import { getDate } from "../../constants/functions"
+import { dateToBrDate } from "../../constants/functions"
 
 export const createOrder = (orderItems, history) => async dispatch => {
   if (!JSON.parse(localStorage.getItem("user-token")))
@@ -65,7 +65,7 @@ function getData(orderItems) {
 
     newProducts.push({
       id, cod, title, price, quantity, category_id, brand_id, company_id, images,
-      buy_quantity, buy_freight, buy_term, discount: discount === null ? 0 : discount, buy_date: getDate(new Date())
+      buy_quantity, buy_freight, buy_term, discount: discount === null ? 0 : discount, buy_date: dateToBrDate(new Date())
     })
 
     return null

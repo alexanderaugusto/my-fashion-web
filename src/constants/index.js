@@ -1,4 +1,4 @@
-import { getDayAndMonth, inputValidation, getDate } from "./functions"
+import { dateToBrDate, getFreightTerm, inputValidation } from "./functions"
 
 const categories = [
   "Beleza",
@@ -106,8 +106,8 @@ export {
   categories,
   subCategories,
   slideImages,
-  getDayAndMonth,
   inputValidation,
   autoCompleteSuggestions,
-  getDate
+  dateToBrDate, 
+  getFreightTerm
 }

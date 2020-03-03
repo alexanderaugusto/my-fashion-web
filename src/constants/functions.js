@@ -1,10 +1,10 @@
-function getDayAndMonth(monthIndex) {
+function getFreightTerm(monthIndex) {
   const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
   return months[monthIndex]
 }
 
-function getDate(date) {
+function dateToBrDate(date) {
   let dateObj = new Date(date)
   dateObj.toLocaleString('pt-BR', {
     timeZone: 'America/Sao_Paulo',
@@ -341,9 +341,10 @@ const inputValidation = {
   cardCodValidation
 }
 
+
 /** VALIDATION INPUTS **/
 export {
-  getDayAndMonth,
-  getDate,
+  getFreightTerm,
+  dateToBrDate,
   inputValidation
 }
