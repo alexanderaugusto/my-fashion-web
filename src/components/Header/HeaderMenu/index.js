@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import HeaderBig from "./HeaderBig"
 import HeaderMini from "./HeaderMini"
+import { getCategories, getSubcategoires, getBrands } from "../../../redux/actions/appAction"
+import { useDispatch } from "react-redux"
 
 import "../Header.css"
 
@@ -8,7 +10,8 @@ export default function HeaderMenu({ history, onBtnClick }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   // Redux
-
+  const dispatch = useDispatch()
+  
   // Set screen width
   useEffect(() => {
     function handleResize() {
@@ -19,6 +22,12 @@ export default function HeaderMenu({ history, onBtnClick }) {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    dispatch(getCategories())
+    dispatch(getSubcategoires())
+    dispatch(getBrands())
+  }, [dispatch])
 
   function logout() {
     localStorage.clear()

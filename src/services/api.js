@@ -49,10 +49,16 @@ const routes = {
   ROUTE_ORDER_LIST: "/order/list",
   ROUTE_ORDER_UPDATE: "/order/status/update",
   ROUTE_ORDER_GET_STATUS: "/order/status/list_all",
+
   // Favorite 
   ROUTE_FAVORITE_INSERT: "/favorite/create",
   ROUTE_FAVORITE_LIST: "/favorite/list",
   ROUTE_FAVORITE_DELETE_PRODUCT: "/favorite/delete_product",
+
+  // Category 
+  ROUTE_CATEGORY_GET_ALL: "/category/list_all",
+  ROUTE_SUBCATEGORY_GET_ALL: "/subcategory/list_all",
+  ROUTE_BRAND_GET_ALL:  "/brand/list_all"
 }
 
 const success = (message, callback, data) => {

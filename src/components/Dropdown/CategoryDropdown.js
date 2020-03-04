@@ -1,75 +1,60 @@
 import React, { useState } from "react"
-import { categories, subCategories } from "../../constants"
 import {
-  Dropdown,
+  UncontrolledDropdown,
   DropdownMenu,
-  DropdownItem,
   DropdownToggle,
-  CardTitle,
-  CardHeader,
-  CardBody,
   Row,
-  Col
+  Col,
+  Nav,
+  NavItem
 } from "reactstrap"
-import CardDescription from "../CardElements/CardDescription"
+import { CardDescription, Avatar } from "../../components"
+import { useSelector } from "react-redux"
 
 import "./Dropdown.css"
 
 export default function CategoryDropdown() {
-  const [dropCategory, setDropCategory] = useState(false)
-  const [subCategoryIndex, setSubCategoryIndex] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState(1)
 
-  function closeMenu() {
-    setDropCategory(false)
-    setSubCategoryIndex(false)
-  }
+  // Redux
+  const { categories, subcategories } = useSelector(state => state.appReducer)
 
   return (
     <div>
-      <Dropdown isOpen={dropCategory} toggle={() => setDropCategory(prevState => !prevState)}
-        style={{ width: "80%" }}>
+      <UncontrolledDropdown>
         <DropdownToggle tag="a" className="button-dropdown nav-link" caret>
           <i className="now-ui-icons text_align-center" style={{ marginRight: 5 }} />
           Categorias
         </DropdownToggle>
-        <Row onMouseLeave={() => closeMenu()}>
-          <Col>
-            <DropdownMenu right>
-              {categories.map((value, index) => {
+        <DropdownMenu style={{ width: "400%" }} className="text-center">
+          <Nav>
+            {categories.map((category, index) => {
+              return (
+                <NavItem key={index} className="button-animation-grow"
+                  onMouseEnter={() => setSelectedCategory(category.id)}
+                  onClick={() => setSelectedCategory(category.id)}>
+                  <Avatar key={index} icon={category.image} background={category.background} />
+                </NavItem>
+              )
+            })}
+          </Nav>
+
+          <br /> <br />
+
+          <Row>
+            {subcategories.map((subCategory, index) => {
+              if (subCategory.category_id === selectedCategory)
                 return (
-                  <DropdownItem key={index} onMouseEnter={() => setSubCategoryIndex(index)}>
-                    {value}
-                  </DropdownItem>
+                  <Col key={index} lg={4} xs={12}>
+                    <CardDescription tag="a" href={"/products/" + subCategory.name} key={index}>{subCategory.name}</CardDescription>
+                  </Col>
                 )
-              })}
-            </DropdownMenu>
-          </Col>
-          <Col>
-            {subCategoryIndex === false ? null :
-              <DropdownMenu className="sub-category-menu">
-                <CardHeader>
-                  <CardTitle>{subCategories[subCategoryIndex].title}</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Row>
-                    {subCategories[subCategoryIndex].views.map((value, index) => {
-                      return (
-                        <Col key={index} lg={4} xs={12}>
-                          <CardDescription color="black" fontWeight="bold">{value.title}</CardDescription>
-                          {value.views.map((value2, index2) => {
-                            return (
-                              <CardDescription tag="a" href=" #" key={index2}>{value2}</CardDescription>
-                            )
-                          })}
-                        </Col>
-                      )
-                    })}
-                  </Row>
-                </CardBody>
-              </DropdownMenu>}
-          </Col>
-        </Row>
-      </Dropdown>
-    </div>
+
+              return null
+            })}
+          </Row>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    </div >
   )
 }

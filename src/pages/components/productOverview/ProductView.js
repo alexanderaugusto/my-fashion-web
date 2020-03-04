@@ -37,7 +37,8 @@ export default function ProductView({ product }) {
           {product.images.map(value => {
             return (
               <NavItem key={value.id} className={"text-center nav-item " + isSelectedItem(value)}
-                onMouseEnter={() => changeSelectedItem(value)}>
+                onMouseEnter={() => changeSelectedItem(value)}
+                onClick={() => changeSelectedItem(value)}>
                 <img src={api.routes.FILES_URL + value.name} alt={value.name} width="80" height="80" />
               </NavItem>
             )

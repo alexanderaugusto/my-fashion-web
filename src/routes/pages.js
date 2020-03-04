@@ -21,7 +21,7 @@ export default [
     component: Cart
   },
   {
-    path: "/products/:pathParam1?/:pathParam2?",
+    path: "/products/:searchText",
     component: Products
   },
   {

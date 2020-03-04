@@ -15,19 +15,26 @@ import { useSelector } from 'react-redux'
 
 import "./Input.css"
 
-export default function Autocomplete({ suggestions, handleSearch }) {
+export default function Autocomplete({ handleSearch }) {
   const [activeSuggestion, setActiveSuggestion] = useState(-1)
   const [filteredSuggestions, setFilteredSuggestions] = useState([])
   const [searchText, setSearchText] = useState("")
   const [currentSearchText, setCurrentSearchText] = useState("")
+  const [suggestions, setSuggestions] = useState([])
 
   // Redux
   const searchTextReducer = useSelector(state => state.productReducer.searchText)
+  const { categories, subcategories, brands } = useSelector(state => state.appReducer)
 
   useEffect(() => {
     setSearchText(searchTextReducer)
     setCurrentSearchText(searchTextReducer)
-  }, [searchTextReducer])
+
+    const suggestions = []
+    categories.concat(subcategories, brands).filter(value => suggestions.push(value.name))
+    setSuggestions(suggestions)
+    
+  }, [searchTextReducer, categories, subcategories, brands])
 
   // Event fired when the input value is changed
   function onChange(e) {

@@ -1,6 +1,9 @@
 const INITIAL_STATE = {
   loading: false,
-  alert: {}
+  alert: {},
+  categories: [],
+  subcategories: [],
+  brands: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,6 +28,21 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         alert: {}
+      }
+    case "GET_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload
+      }
+    case "GET_SUBCATEGORIES":
+      return {
+        ...state,
+        subcategories: action.payload
+      }
+    case "GET_BRANDS":
+      return {
+        ...state,
+        brands: action.payload
       }
     default:
       return state

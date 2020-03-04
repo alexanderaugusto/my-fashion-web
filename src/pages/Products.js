@@ -8,7 +8,7 @@ import {
   Row,
   Col
 } from "reactstrap"
-import { searchProducts } from "../redux/actions/productAction"
+import { filterProducts } from "../redux/actions/productAction"
 import { insertCartItem } from "../redux/actions/cartAction"
 import { useSelector, useDispatch } from 'react-redux'
 import { CardDescription, Button } from "../components"
@@ -22,10 +22,9 @@ export default function Products({ match, history }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const pathParam1 = match.params.pathParam1
-    const pathParam2 = match.params.pathParam2
-    dispatch(searchProducts(pathParam1, pathParam2))
-  }, [dispatch, match.params.pathParam1, match.params.pathParam2])
+    const pathParam = match.params.searchText
+    dispatch(filterProducts(pathParam))
+  }, [dispatch, match.params.searchText])
 
   const renderProducts = () => {
     return (

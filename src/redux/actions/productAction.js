@@ -53,26 +53,7 @@ export const getProductOffers = (product_category, product_id) => async dispatch
   dispatch({ type: "STOP_LOADING" })
 }
 
-export const getProductsByCategory = (product_category) => async dispatch => {
-  const config = {
-    params: { product_category }
-  }
-
-  dispatch({ type: "START_LOADING" })
-  await api.request.get(api.routes.ROUTE_PRODUCT_LIST_BY_CATEGORY, config, null, (cod, message, payload) => {
-    if (cod === 200) {
-      dispatch({
-        type: "GET_PRODUCT_BY_CATEGORY",
-        payload: payload
-      })
-    } else {
-      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message } })
-    }
-  })
-  dispatch({ type: "STOP_LOADING" })
-}
-
-export const searchProducts = (string) => async dispatch => {
+export const filterProducts = (string) => async dispatch => {
   const config = {
     params: { string }
   }

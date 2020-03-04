@@ -2,3 +2,7 @@
   width: 80vh !important;
   cursor: default;
 }
+
+.subcategory{
+  height: 30%;
+}

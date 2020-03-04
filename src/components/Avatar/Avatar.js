@@ -19,7 +19,7 @@ export default function IconAvatars({ icon, color, background, src, alt, type, w
   if (icon)
     return (
       <div className={classes.root}>
-        <Avatar className="avatar-icon" style={{ color, background }}>
+        <Avatar style={{ color, background, width, height }}>
           <i className={icon} />
         </Avatar>
       </div>
