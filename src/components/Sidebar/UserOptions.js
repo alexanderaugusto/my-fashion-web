@@ -41,6 +41,7 @@ export default function UserOptions({ activeRoute, history }) {
   return (
     <div className="user-options-main" onMouseLeave={() => setToggle(false)}>
       <SideNav
+        id="user-options-sidebar"
         onSelect={(selected) => {
           // Add your code here
         }}

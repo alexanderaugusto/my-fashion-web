@@ -1,19 +1,21 @@
 .side-nav{
   position: -webkit-sticky !important;
-  position: sticky !important;
+  position: fixed !important;
   z-index: 10 !important;
+  background-color: white !important;
+  margin-top: 138px;
 }
 
 .user-options-main{
   margin-left: -26px !important;
-  margin-top: -57px !important;
+  /* margin-top: -57px !important; */
   background-color: white !important;
   z-index: 10 !important;
 }
 
 .toggle-container{
-  margin-bottom: 50px !important;
-  margin-top: -50px !important;
+  /* margin-bottom: 50px !important;
+  margin-top: -50px !important; */
 }
 
 .nav{

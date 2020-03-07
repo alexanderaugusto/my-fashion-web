@@ -20,6 +20,22 @@ export default function PagesLayout({ history, match }) {
 
   useEffect(() => { dispatch(getUser()) }, [dispatch])
 
+  useEffect(() => {
+    const userSidebar = document.getElementById("user-options-sidebar")
+
+    if (userSidebar) {
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset <= 138) {
+          userSidebar.style.marginTop = 138 - window.pageYOffset + "px"
+        } else {
+          userSidebar.style.marginTop = "0px"
+        }
+      }, false)
+    }else{
+      window.removeEventListener("scroll", () => null, false)
+    }
+  })
+
   // Toggle modal of register and login
   function toggleModal(tab, redirect) {
     setModalOpen(!modalOpen)
