@@ -1,16 +1,13 @@
 import React from "react"
-import {
-  CardTitle
-} from "reactstrap"
 import StarRatings from 'react-star-ratings'
 import { Button, CardDescription } from "../../../components"
 
 export default function ProductInfo({ product }) {
   if (!product)
     return null
+
   return (
     <div>
-      <CardTitle>{product.title}</CardTitle>
       <StarRatings
         rating={2.67}
         starRatedColor="#FFD700"

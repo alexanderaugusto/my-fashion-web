@@ -3,10 +3,6 @@
   width: 100%;
 }
 
-.nav-item{
-  cursor: pointer;
-}
-
 .selected-item{
   border-style: solid;
   border-width: 2px;
@@ -24,6 +20,7 @@
 /**  PRODUCT INFO BUY  **/
 .card-title-price{
   font-size: 35px !important;
+  margin-bottom: 0 !important;
 }
 
 .align-grid{
@@ -49,6 +46,12 @@
   margin-left: 10px;
 }
 
-.praze-frete-consult{
-  margin-top: 40px;
+.company-div{
+  border-width: 1px !important;
+  padding: 10px !important;
+  border-color: rgba(0, 153, 204, 1) !important;
+  border-style: solid !important;
+  border-radius: 5px !important;
+  margin-top: 40px !important;
+  margin-bottom: 20px !important;
 }

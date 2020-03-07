@@ -6,7 +6,7 @@ import ProductInfoBuy from './productOverview/ProductInfoBuy'
 import ProductOffers from "./productOverview/ProductOffers"
 import ProductView from "./productOverview/ProductView"
 
-import Sidebar from "./products/Sidebar"
+import ProductOptions from "./products/ProductOptions"
 
 import AddressData from "./userData/AddressData"
 import AccountData from "./userData/AccountData"
@@ -25,7 +25,7 @@ export {
   ProductOffers,
   ProductView,
   // Products
-  Sidebar,
+  ProductOptions,
   // User Data
   AddressData,
   PersonalData,

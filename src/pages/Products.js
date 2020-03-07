@@ -12,7 +12,7 @@ import { filterProducts } from "../redux/actions/productAction"
 import { insertCartItem } from "../redux/actions/cartAction"
 import { useSelector, useDispatch } from 'react-redux'
 import { CardDescription, Button } from "../components"
-import { Sidebar } from "./components"
+import { ProductOptions } from "./components"
 
 import api from "../services/api"
 
@@ -21,10 +21,7 @@ export default function Products({ match, history }) {
   const { products, searchText } = useSelector(state => state.productReducer)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const pathParam = match.params.searchText
-    dispatch(filterProducts(pathParam))
-  }, [dispatch, match.params.searchText])
+  useEffect(() => {dispatch(filterProducts(match.params.searchText))}, [dispatch, match.params.searchText])
 
   const renderProducts = () => {
     return (
@@ -79,7 +76,7 @@ export default function Products({ match, history }) {
     <div>
       <Row>
         <Col md={3} xs={12}>
-          <Sidebar />
+          <ProductOptions />
         </Col>
         <Col md={9} xs={12}>
           {renderProducts()}

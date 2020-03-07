@@ -62,7 +62,7 @@ export const filterProducts = (string) => async dispatch => {
   await api.request.get(api.routes.ROUTE_PRODUCT_SEARCH, config, null, (cod, message, payload) => {
     if (cod === 200) {
       dispatch({
-        type: "SEARCH_PRODUCTS",
+        type: "FILTER_PRODUCTS",
         payload,
         text: string
       })

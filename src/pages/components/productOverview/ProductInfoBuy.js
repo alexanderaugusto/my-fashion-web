@@ -68,17 +68,24 @@ export default function ProductInfoBuy({ product, history }) {
 
   return (
     <div>
-      <div className="align-grid margin-bottom">
-        <CardTitle className="card-title-price">
-          {`R$ ${product.price.toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}
-        </CardTitle>
-        <Button className="favourite-icon-grid button-animation-grow" icon color="link"
-          onClick={() => dispatch(insertFavoriteItem(product.id))}>
-          <i className="now-ui-icons ui-2_favourite-28" />
-        </Button>
-      </div>
+      <div>
+        <CardTitle>{product.title}</CardTitle>
+        <Row>
+          <Col className="text-left" md={8} xs={12}>
+            <CardTitle className="card-title-price">
+              {`R$ ${product.price.toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}
+            </CardTitle>
+            <CardDescription> Em até 12x de R$ 15,99 </CardDescription>
+          </Col>
+          <Col className="text-right" md={4} xs={12}>
+            <Button className="favourite-icon-grid button-animation-grow" icon color="link"
+              onClick={() => dispatch(insertFavoriteItem(product.id))}>
+              <i className="now-ui-icons ui-2_favourite-28" />
+            </Button>
+          </Col>
+        </Row>
 
-      <CardDescription> Em até 12x de R$ 15,99 </CardDescription>
+      </div>
 
       {!mainAddress || mainAddress.length === 0 ? null :
         <div>
@@ -109,20 +116,28 @@ export default function ProductInfoBuy({ product, history }) {
         Adiconar ao carrinho
       </Button>
 
-      <div className="praze-frete-consult">
+      <div className="company-div">
+        <CardDescription marginBottom={2} fontWeight="bold">Vendido e entregue por
+          <a href=" #" target="_blank">{" " + product.company.name}</a>
+        </CardDescription>
+        <CardDescription>{product.company.city + " - " + product.company.state}</CardDescription>
+      </div>
+
+      <div>
         <CardDescription color="black" fontSize="17px">Consultar prazos e fretes</CardDescription>
         <Form onSubmit={(e) => {
           e.preventDefault()
           freteCalculator()
         }}>
           <Row>
-            <Col xs="7">
+            <Col xs={7}>
               <FormGroup>
                 <Input placeholder="Digite um CEP..." value={cep} onChange={(e) => setCep(e.target.value)} />
               </FormGroup>
             </Col>
-            <Col xs="0" md="0">
+            <Col xs={5}>
               <Button
+                block
                 round
                 color="info"
                 style={{ marginTop: "-3px" }}

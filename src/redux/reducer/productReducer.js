@@ -18,19 +18,13 @@ export default (state = INITIAL_STATE, action) => {
         product: action.payload,
         searchText: ""
       }
-    case "GET_PRODUCT_BY_CATEGORY":
-      return {
-        ...state,
-        products: action.payload,
-        searchText: ""
-      }
     case "GET_PRODUCT_OFFERS":
       return {
         ...state,
         products: action.payload,
         searchText: ""
       }
-    case "SEARCH_PRODUCTS":
+    case "FILTER_PRODUCTS":
       return {
         ...state,
         products: action.payload,

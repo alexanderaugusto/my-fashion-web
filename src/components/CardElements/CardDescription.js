@@ -6,8 +6,8 @@ class CardDescription extends React.Component {
     const { color, fontWeight = 400, fontSize, marginTop, marginBottom, children, tag, href } = this.props
 
     if (tag === "a") {
-      return <p><a href={href} className={"card-description " + this.props.className}
-        style={{ color, fontWeight, fontSize, marginTop, marginBottom }}>{children}</a></p>
+      return <p style={{ marginTop, marginBottom }}><a href={href} className={"card-description " + this.props.className}
+        style={{ color, fontWeight, fontSize }}>{children}</a></p>
     }
     return <p className={"card-description " + this.props.className}
       style={{ color, fontWeight, fontSize, marginBottom }}>{children}</p>

@@ -6,7 +6,6 @@ import {
   Col,
   CardTitle
 } from "reactstrap"
-import { Button } from "../components"
 import { ProductView, ProductInfo, ProductInfoBuy, ProductOffers } from "./components"
 import { getProduct } from "../redux/actions/productAction"
 import { useSelector, useDispatch } from "react-redux"
@@ -32,7 +31,7 @@ export default function Product({ match, history }) {
     <div>
       <Card>
         <CardHeader className="card-header-main">
-          <Button
+          {/* <Button
             className="btn-neutral btn-go-back"
             onClick={() => history.goBack()}
           >
@@ -40,28 +39,29 @@ export default function Product({ match, history }) {
               <i className="now-ui-icons arrows-1_minimal-left" />
               {" "} Voltar ao início
             </div>
-          </Button>
+          </Button> */}
 
           <Row>
-            <Col md={6} xs={12} className="text-left">
+            <Col md={7} xs={12} className="text-left">
               <ProductView product={product} />
             </Col>
-            <Col className="text-left">
-              <Row>
-                <Col>
-                  <ProductInfo product={product} />
-                </Col>
-                <Col>
-                  <ProductInfoBuy product={product} history={history} />
-                </Col>
-              </Row>
+            <Col md={5} xs={12} className="text-left">
+              <ProductInfoBuy product={product} history={history} />
             </Col>
           </Row>
         </CardHeader>
       </Card>
+
       <Card>
         <CardHeader>
-          <CardTitle> Produtos que talvez te interesse </CardTitle>
+          <CardTitle> Descrição do produto </CardTitle>
+          <ProductInfo product={product} history={history} />
+        </CardHeader>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle> Produtos que talvez você tenha interesse </CardTitle>
           <ProductOffers currentProduct={product} history={history} />
         </CardHeader>
       </Card>
