@@ -125,7 +125,7 @@ export default function OrderAdresses({ selectedAddress, isModal, changeSelected
           </Col>
         </Row>
 
-        <Form type="address-insert" onSubmit={() => setPage(2)} />
+        <Form type="address-insert" onSubmit={() => setPage(1)} />
       </div>
     )
   }
