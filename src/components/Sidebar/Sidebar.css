@@ -3,11 +3,11 @@
   position: fixed !important;
   z-index: 10 !important;
   background-color: white !important;
-  margin-top: 138px;
+  /* margin-top: 138px; */
 }
 
 .user-options-main{
-  margin-left: -26px !important;
+  /* margin-left: -26px !important; */
   /* margin-top: -57px !important; */
   background-color: white !important;
   z-index: 10 !important;

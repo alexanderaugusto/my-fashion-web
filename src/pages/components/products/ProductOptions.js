@@ -86,7 +86,7 @@ export default function ProductOptions() {
           <CardTitle>Filtrar por marca</CardTitle>
         </CardHeader>
         <CardBody>
-          <ListGroup className="list-group">
+          <ListGroup className="list-group-brand">
             {brands.map(brand => {
               return (
                 <ListGroupItem key={brand.id}>

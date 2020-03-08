@@ -102,8 +102,10 @@ export default function ProductInfoBuy({ product, history }) {
         round
         color="info"
         className="mb-3"
+        size="lg"
         onClick={() => buyProduct()}
       >
+        <i className="fas fa-lock" />{" "}
         Comprar
       </Button>
       <Button
@@ -111,6 +113,7 @@ export default function ProductInfoBuy({ product, history }) {
         round
         color="simple"
         className="mb-3 button-add-cart"
+        size="lg"
         onClick={() => dispatch(insertCartItem(product.id))}
       >
         Adiconar ao carrinho

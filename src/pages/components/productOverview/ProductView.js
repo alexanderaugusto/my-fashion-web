@@ -46,11 +46,12 @@ export default function ProductView({ product }) {
           })}
         </Nav>
       </Col>
-      <Col md="auto" xs={12}>
+      <Col md={9} xs={12}>
         <div className="image-viewer text-center">
           {/* <img src={api.routes.FILES_URL + selectedItem.name} alt={selectedItem.name} width="400" height="400" /> */}
-          <Magnifier src={api.routes.FILES_URL + selectedItem.name} width={400} height={400}
-            zoomFactor={1} mgShape="square" mgBorderWidth={1} mgHeight={200} mgWidth={200} />
+          <Magnifier src={api.routes.FILES_URL + selectedItem.name} width="100%" height={400}
+            zoomFactor={1} mgShape="square" mgBorderWidth={1} mgHeight={200} mgWidth={200}
+            onClick={() => console.log("clicou")} />
         </div>
       </Col>
     </Row>

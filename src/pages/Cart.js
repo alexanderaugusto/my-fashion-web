@@ -40,14 +40,18 @@ export default function Cart({ history }) {
   }, [dispatch, selectedAddress, cart])
 
   function goToCheckout() {
-    history.push({
-      pathname: "/checkout",
-      state: {
-        products: cart,
-        address: selectedAddress,
-        freight: "pac"
-      }
-    })
+    if (!selectedAddress) {
+      dispatch({ type: "OPEN_ALERT", payload: { open: true, type: "error", message: "Adicione um endereço para continuar a compra." } })
+    } else {
+      history.push({
+        pathname: "/checkout",
+        state: {
+          products: cart,
+          address: selectedAddress,
+          freight: "pac"
+        }
+      })
+    }
   }
 
   async function removeProduct(product) {

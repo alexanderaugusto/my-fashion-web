@@ -26,12 +26,15 @@ export default function PagesLayout({ history, match }) {
     if (userSidebar) {
       window.addEventListener("scroll", () => {
         if (window.pageYOffset <= 138) {
-          userSidebar.style.marginTop = 138 - window.pageYOffset + "px"
+          if (window.innerWidth > 1011)
+            userSidebar.style.marginTop = 138 - window.pageYOffset + "px"
+          else
+            userSidebar.style.marginTop = 78 - window.pageYOffset + "px"
         } else {
           userSidebar.style.marginTop = "0px"
         }
       }, false)
-    }else{
+    } else {
       window.removeEventListener("scroll", () => null, false)
     }
   })

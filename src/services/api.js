@@ -70,7 +70,9 @@ const error = (message, callback) => {
     callback(400, "Um erro ocorreu! Por favor, verifique todos os campos inseridos.")
   }
   else if (message.toString().includes("401")) {
-    callback(401, "Você precisa estar autenticado para relizar essa operação.")
+    localStorage.clear()
+    window.location.reload()
+    // callback(401, "Você precisa estar autenticado para relizar essa operação.")
   }
   else if (message.toString().includes("404")) {
     callback(404, "Um erro ocorreu. Por favor, tente novamente mais tarde.")

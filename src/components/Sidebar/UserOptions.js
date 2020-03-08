@@ -47,6 +47,7 @@ export default function UserOptions({ activeRoute, history }) {
         }}
         className="side-nav"
         expanded={toggle}
+        style={{ marginTop: window.innerWidth > 1011 ? 138 : 78 }}
         onToggle={e => setToggle(e)}
       >
         <Toggle componentClass={componentToggle} />
@@ -68,7 +69,7 @@ export default function UserOptions({ activeRoute, history }) {
               </NavItem>
             )
           })}
-          
+
         </Nav>
       </SideNav>
     </div>

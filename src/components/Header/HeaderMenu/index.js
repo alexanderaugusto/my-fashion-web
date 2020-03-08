@@ -11,7 +11,7 @@ export default function HeaderMenu({ history, onBtnClick }) {
 
   // Redux
   const dispatch = useDispatch()
-  
+
   // Set screen width
   useEffect(() => {
     function handleResize() {
@@ -51,7 +51,7 @@ export default function HeaderMenu({ history, onBtnClick }) {
     window.location.reload()
   }
 
-  if (screenWidth > 1011)
+  if (screenWidth > 1011) {
     return (
       <HeaderBig onBtnClick={(param) => onBtnClick(param)}
         logout={() => logout()}
@@ -61,6 +61,7 @@ export default function HeaderMenu({ history, onBtnClick }) {
         screenWidth={screenWidth}
       />
     )
+  }
 
   return (
     <HeaderMini onBtnClick={(param) => onBtnClick(param)}
