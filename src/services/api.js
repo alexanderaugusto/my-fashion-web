@@ -6,7 +6,7 @@ const axiosCreated = axios.create({
 
 const routes = {
   // Images
-  FILES_URL: "https://centralmodas-upload.s3.amazonaws.com/",
+  FILES_URL: "https://centralmodas-backend.herokuapp.com/files/",
 
   // Auth
   ROUTE_LOGIN: "/login",
