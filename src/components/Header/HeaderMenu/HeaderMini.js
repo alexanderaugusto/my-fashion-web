@@ -82,7 +82,7 @@ export default function HeaderMini({ onBtnClick, logout, isOnline, redirectToPag
                 <img className="user-avatar-mini" src={image} alt="Avatar" />
               </DropdownToggle>
               <DropdownMenu right style={{ background: "white" }}>
-                <DropdownItem header disabled className="text-left"> Bem-vindo a Central Modas </DropdownItem>
+                <DropdownItem header disabled className="text-left"> Bem-vindo a My Fashion </DropdownItem>
                 <Row className="text-center">
                   <Col className="ml-auto mr-auto">
                     <Button color="info" onClick={() => onBtnClick("register")}> Cadastrar </Button>

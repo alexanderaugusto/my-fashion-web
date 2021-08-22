@@ -46,7 +46,7 @@ export default function HeaderBig({ onBtnClick, logout, isOnline, redirectToPage
                 Minha Conta
                 </DropdownToggle>
               <DropdownMenu right >
-                <DropdownItem header disabled className="text-left"> Bem-vindo a Central Modas </DropdownItem>
+                <DropdownItem header disabled className="text-left"> Bem-vindo a My Fashion </DropdownItem>
                 <Row className="text-center">
                   <Col className="ml-auto mr-auto">
                     <Button color="info" onClick={() => onBtnClick("register")}> Cadastrar </Button>
